@@ -1309,9 +1309,158 @@ export default function Dashboard() {
           )}
 
           {activeSection === 'arbitrage' && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between"><h2 className="text-2xl font-bold text-text-primary">Arbitrage Monitoring</h2><Button variant="primary">Refresh</Button></div>
-              <Card variant="default"><CardHeader title="Real-time Opportunities" /><CardContent><div className="overflow-x-auto"><table className="w-full"><thead><tr className="border-b border-border-primary"><th className="text-left py-3 px-4 text-text-secondary">Pair</th><th className="text-left py-3 px-4 text-text-secondary">Exchange 1</th><th className="text-left py-3 px-4 text-text-secondary">Exchange 2</th><th className="text-left py-3 px-4 text-text-secondary">Spread</th><th className="text-left py-3 px-4 text-text-secondary">Action</th></tr></thead><tbody>{mockData.arbitrageOpportunities.map(opp => <tr key={opp.id} className="border-b border-border-primary hover:bg-background-secondary"><td className="py-3 px-4 font-mono font-semibold">{opp.pair}</td><td className="py-3 px-4">{opp.exchange1}</td><td className="py-3 px-4">{opp.exchange2}</td><td className="py-3 px-4 font-mono text-success-400">+{opp.spread}%</td><td className="py-3 px-4"><Button variant="primary" size="sm">Execute</Button></td></tr>)}</tbody></table></div></CardContent></Card>
+            <div className="space-y-4">
+              <div className="bg-background-secondary p-4 rounded">
+                <div className="grid grid-cols-4 gap-4 mb-4">
+                  <div>
+                    <label className="block text-xs text-text-secondary mb-1">Strategy Type</label>
+                    <select className="w-full px-2 py-1 bg-background-primary border border-border-primary rounded text-xs">
+                      <option>Period Arbitrage</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs text-text-secondary mb-1">Min Spread (%)</label>
+                    <input type="text" defaultValue="0.05" className="w-full px-2 py-1 bg-background-primary border border-border-primary rounded text-xs" />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-text-secondary mb-1">Max Spread (%)</label>
+                    <input type="text" defaultValue="0.02" className="w-full px-2 py-1 bg-background-primary border border-border-primary rounded text-xs" />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-text-secondary mb-1">Exchange Type</label>
+                    <select className="w-full px-2 py-1 bg-background-primary border border-border-primary rounded text-xs">
+                      <option>All Exchanges</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="grid grid-cols-4 gap-4 mb-4">
+                  <div>
+                    <label className="block text-xs text-text-secondary mb-1">Buy & Sell</label>
+                    <select className="w-full px-2 py-1 bg-background-primary border border-border-primary rounded text-xs">
+                      <option>Market Order</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs text-text-secondary mb-1">Sell & Buy</label>
+                    <select className="w-full px-2 py-1 bg-background-primary border border-border-primary rounded text-xs">
+                      <option>Market Order</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs text-text-secondary mb-1">Position Allocation</label>
+                    <select className="w-full px-2 py-1 bg-background-primary border border-border-primary rounded text-xs">
+                      <option>Not Allocated</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs text-text-secondary mb-1">Spread (%)</label>
+                    <input type="text" defaultValue="0.05" className="w-full px-2 py-1 bg-background-primary border border-border-primary rounded text-xs" />
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="primary" size="sm">Start Auto Trading</Button>
+                  <Button variant="secondary" size="sm">Save Strategy</Button>
+                  <Button variant="ghost" size="sm">Reset</Button>
+                </div>
+              </div>
+              <div className="bg-background-primary border border-border-primary rounded overflow-hidden">
+                <table className="w-full text-xs">
+                  <thead className="bg-background-secondary">
+                    <tr>
+                      <th className="text-left py-2 px-3 text-text-secondary">Trading Pair</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">Strategy</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">Price (Buy)</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">Price (Sell)</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">24H Change (%)</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">24H Volume</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">Net Amount</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">Position Status</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">Expected ROI</th>
+                      <th className="text-left py-2 px-3 text-text-secondary">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-border-primary hover:bg-background-secondary/30">
+                      <td className="py-2 px-3">
+                        <div className="font-mono font-semibold text-text-primary">SOL-USDT</div>
+                        <div className="text-xs text-text-secondary">Perpetual</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="text-text-primary">Buy: <span className="text-blue-400">OKX</span></div>
+                        <div className="text-text-primary">Sell: <span className="text-orange-400">BYBIT</span></div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono text-text-primary">$237994.21</div>
+                        <div className="text-xs text-success-400">+0.304%</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono text-text-primary">$238965.73</div>
+                        <div className="text-xs text-success-400">0.024%</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono text-success-400">+9.49%</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono text-text-primary">$9.2M</div>
+                        <div className="text-xs text-text-secondary">USDT</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="text-success-400 text-xs">Buy: +0.806% | 0M6m | 8H</div>
+                        <div className="text-danger-400 text-xs">Sell: -0.806% | 0M6m | 8H</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="text-text-primary text-xs">≈ 7.1 SOL</div>
+                        <div className="text-text-primary text-xs">≈ 7.1 SOL</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono font-semibold text-success-400">+0.235%</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <Button variant="primary" size="sm" className="bg-success-600 hover:bg-success-700 text-xs px-2 py-1">Open</Button>
+                      </td>
+                    </tr>
+                    <tr className="border-b border-border-primary hover:bg-background-secondary/30">
+                      <td className="py-2 px-3">
+                        <div className="font-mono font-semibold text-text-primary">ETH-USDT</div>
+                        <div className="text-xs text-text-secondary">Perpetual</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="text-text-primary">Buy: <span className="text-orange-400">BYBIT</span></div>
+                        <div className="text-text-primary">Sell: <span className="text-orange-400">BINANCE</span></div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono text-text-primary">$67382.15</div>
+                        <div className="text-xs text-success-400">+0.277%</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono text-text-primary">$67568.79</div>
+                        <div className="text-xs text-success-400">0.015%</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono text-success-400">+6.03%</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono text-text-primary">$2.5M</div>
+                        <div className="text-xs text-text-secondary">USDT</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="text-success-400 text-xs">Buy: +0.021% | 0M3m | 8H</div>
+                        <div className="text-success-400 text-xs">Sell: +0.021% | 0M3m | 8H</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="text-text-primary text-xs">≈ 5.9 ETH</div>
+                        <div className="text-text-primary text-xs">≈ 5.9 ETH</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <div className="font-mono font-semibold text-success-400">+0.218%</div>
+                      </td>
+                      <td className="py-2 px-3">
+                        <Button variant="primary" size="sm" className="bg-success-600 hover:bg-success-700 text-xs px-2 py-1">Open</Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
 
