@@ -1,0 +1,280 @@
+/* Noise Grid 全局样式 Global Styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 基础样式重置 Base Styles Reset */
+@layer base {
+  * {
+    @apply border-border-primary;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-background-primary text-text-primary font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* 滚动条样式 Scrollbar Styles */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background-secondary;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border-primary rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-border-secondary;
+  }
+
+  /* 选择文本样式 Text Selection */
+  ::selection {
+    @apply bg-primary-500/30 text-text-primary;
+  }
+
+  /* 聚焦样式 Focus Styles */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-500/30 ring-offset-2 ring-offset-background-primary;
+  }
+}
+
+/* 组件样式 Component Styles */
+@layer components {
+  /* 按钮基础样式 Button Base Styles */
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-primary disabled:cursor-not-allowed disabled:opacity-50 shadow-dark-sm hover:shadow-dark-md;
+  }
+
+  .btn-primary {
+    @apply btn-base bg-gradient-primary text-white border-transparent hover:shadow-glow-blue focus:ring-primary-400/30 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply btn-base bg-background-tertiary text-text-primary border-border-primary hover:bg-background-secondary hover:border-border-secondary focus:ring-primary-400/30 active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply btn-base bg-transparent text-text-secondary border-transparent hover:bg-background-tertiary hover:text-text-primary focus:ring-primary-400/30 active:scale-95;
+  }
+
+  .btn-danger {
+    @apply btn-base bg-gradient-danger text-white border-transparent hover:shadow-glow-red focus:ring-danger-400/30 active:scale-95;
+  }
+
+  /* 卡片基础样式 Card Base Styles */
+  .card-base {
+    @apply bg-background-card border border-border-primary rounded-lg shadow-dark-md overflow-hidden;
+  }
+
+  .card-elevated {
+    @apply card-base shadow-dark-lg;
+  }
+
+  .card-outlined {
+    @apply bg-transparent border-2 border-border-primary rounded-lg;
+  }
+
+  .card-ghost {
+    @apply bg-transparent border-none rounded-lg;
+  }
+
+  /* 输入框基础样式 Input Base Styles */
+  .input-base {
+    @apply w-full px-3 py-2 bg-background-secondary text-text-primary placeholder-text-tertiary border border-border-primary rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-border-focus disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .input-error {
+    @apply input-base border-border-error focus:ring-danger-500/30 focus:border-border-error;
+  }
+
+  /* 导航样式 Navigation Styles */
+  .nav-base {
+    @apply bg-background-primary border-b border-border-primary backdrop-blur-md;
+  }
+
+  .nav-item {
+    @apply px-4 py-2 text-text-secondary hover:text-text-accent hover:bg-background-tertiary rounded-lg transition-all duration-300 font-medium;
+  }
+
+  .nav-item-active {
+    @apply nav-item text-text-accent bg-background-tertiary shadow-glow-blue;
+  }
+
+  /* 侧边栏样式 Sidebar Styles */
+  .sidebar-base {
+    @apply bg-background-sidebar border-r border-border-primary backdrop-blur-md;
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-text-primary hover:bg-background-tertiary rounded-lg transition-all duration-300 font-medium;
+  }
+
+  .sidebar-item-active {
+    @apply sidebar-item text-text-accent bg-background-tertiary border-l-2 border-l-primary-400 shadow-glow-blue;
+  }
+
+  /* 表格样式 Table Styles */
+  .table-base {
+    @apply w-full bg-background-card border border-border-primary rounded-lg overflow-hidden;
+  }
+
+  .table-header {
+    @apply bg-background-tertiary text-text-secondary font-medium;
+  }
+
+  .table-cell {
+    @apply px-4 py-3 text-text-primary border-b border-border-primary last:border-b-0;
+  }
+
+  .table-row {
+    @apply hover:bg-background-tertiary transition-colors duration-200;
+  }
+
+  /* 模态框样式 Modal Styles */
+  .modal-overlay {
+    @apply fixed inset-0 bg-background-overlay backdrop-blur-sm z-modal;
+  }
+
+  .modal-content {
+    @apply bg-background-modal border border-border-primary rounded-lg shadow-dark-xl;
+  }
+
+  /* 工具提示样式 Tooltip Styles */
+  .tooltip-base {
+    @apply px-2 py-1 text-xs text-text-primary bg-background-tertiary border border-border-primary rounded shadow-dark-lg;
+  }
+
+  /* 徽章样式 Badge Styles */
+  .badge-base {
+    @apply inline-flex items-center px-2 py-1 text-xs font-medium rounded-full;
+  }
+
+  .badge-success {
+    @apply badge-base bg-success-900 text-success-300 border border-success-700;
+  }
+
+  .badge-error {
+    @apply badge-base bg-danger-900 text-danger-300 border border-danger-700;
+  }
+
+  .badge-warning {
+    @apply badge-base bg-warning-900 text-warning-300 border border-warning-700;
+  }
+
+  .badge-info {
+    @apply badge-base bg-primary-900 text-primary-300 border border-primary-700;
+  }
+
+  /* 交易相关样式 Trading Styles */
+  .price-up {
+    @apply text-chart-green font-mono font-semibold;
+  }
+
+  .price-down {
+    @apply text-chart-red font-mono font-semibold;
+  }
+
+  .price-neutral {
+    @apply text-text-tertiary font-mono;
+  }
+
+  .trading-buy {
+    @apply bg-gradient-success hover:shadow-glow-green text-white font-semibold transition-all duration-300 active:scale-95;
+  }
+
+  .trading-sell {
+    @apply bg-gradient-danger hover:shadow-glow-red text-white font-semibold transition-all duration-300 active:scale-95;
+  }
+
+  /* 状态指示器 Status Indicators */
+  .status-connected {
+    @apply text-chart-green bg-success-900/20 border border-success-500/30;
+  }
+
+  .status-error {
+    @apply text-chart-red bg-danger-900/20 border border-danger-500/30;
+  }
+
+  .status-disconnected {
+    @apply text-text-tertiary bg-background-tertiary border border-border-primary;
+  }
+}
+
+/* 工具样式 Utility Styles */
+@layer utilities {
+  /* 文本省略 Text Truncation */
+  .text-ellipsis-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .text-ellipsis-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 渐变背景 Gradient Backgrounds */
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-500;
+  }
+
+  .bg-gradient-success {
+    @apply bg-gradient-to-r from-success-600 to-success-500;
+  }
+
+  .bg-gradient-danger {
+    @apply bg-gradient-to-r from-danger-600 to-danger-500;
+  }
+
+  /* 玻璃态效果 Glassmorphism */
+  .glass {
+    @apply bg-background-primary/80 backdrop-blur-md border border-border-primary/50;
+  }
+
+  /* 动画效果 Animation Effects */
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  /* 响应式隐藏 Responsive Hide */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* 深色主题变量 Dark Theme Variables */
+:root.dark {
+  --background-primary: #0f172a;
+  --background-secondary: #1e293b;
+  --background-tertiary: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --border-primary: #334155;
+  --border-secondary: #475569;
+}
